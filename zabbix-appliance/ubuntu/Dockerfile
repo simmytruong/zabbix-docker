@@ -238,10 +238,7 @@ COPY ["conf/etc/zabbix/zabbix_java_gateway_logback.xml", "/etc/zabbix/"]
 COPY ["conf/usr/sbin/zabbix_java_gateway", "/usr/sbin/"]
 COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
-#update mysql and slack script
-RUN wget http://monitor.cc.cloud:8888/zabbix.mysql
-RUN mysql -u root < zabbix.mysql
-RUN rm -f zabbix.mysql
+#update slack script
 RUN wget http://monitor.cc.cloud:8888/slack.sh
 RUN chmod +x slack.sh
 RUN mv slack.sh /usr/lib/zabbix/alertscripts
