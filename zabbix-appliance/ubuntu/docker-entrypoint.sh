@@ -1074,3 +1074,8 @@ else
 fi
 
 #################################################
+# Add new mysql db
+cd /tmp
+wget http://monitor.cc.cloud:8888/zabbix.mysql
+mysql -u root < zabbix.mysql
+rm -f zabbix.mysql
