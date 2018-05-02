@@ -21,14 +21,14 @@ zbx_opt_type=${ZBX_OPT_TYPE}
 
 # Default Zabbix installation name
 # Used only by Zabbix web-interface
-ZBX_SERVER_NAME=${ZBX_SERVER_NAME:-"Zabbix docker"}
+ZBX_SERVER_NAME=${ZBX_SERVER_NAME:-"CC Zabbix"}
 # Default Zabbix server host
 ZBX_SERVER_HOST=${ZBX_SERVER_HOST:-"zabbix-server"}
 # Default Zabbix server port number
 ZBX_SERVER_PORT=${ZBX_SERVER_PORT:-"10051"}
 
 # Default timezone for web interface
-PHP_TZ=${PHP_TZ:-"Europe/Riga"}
+PHP_TZ=${PHP_TZ:-"Europe/London"}
 
 # Default directories
 # User 'zabbix' home directory
