@@ -239,5 +239,4 @@ COPY ["conf/usr/sbin/zabbix_java_gateway", "/usr/sbin/"]
 COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
 ENV ZBX_TYPE=appliance
-RUN wget http://monitor.cc.cloud:8888/slack.sh ; chmod +x slack.sh; mv slack.sh /usr/lib/zabbix/alertscripts
 ENTRYPOINT ["docker-entrypoint.sh"]
