@@ -1066,17 +1066,6 @@ elif [ "$zbx_type" == "frontend" ] && [ "$zbx_opt_type" == "apache" ]; then
         exit 1
     fi
 elif [ -f "/usr/bin/supervisord" ]; then
-    echo "##### Add slack.sh and new mysql db"
-    sleep 30
-    cd /tmp
-    wget http://monitor.cc.cloud:8888/zabbix.mysql
-    mysql -u root < zabbix.mysql
-    rm -f zabbix.mysql
-    #update slack script
-    wget http://monitor.cc.cloud:8888/slack.sh
-    chmod +x slack.sh
-    mv slack.sh /usr/lib/zabbix/alertscripts
-    #
     echo "** Executing supervisord"
     exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 else
