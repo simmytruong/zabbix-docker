@@ -1040,6 +1040,8 @@ prepare_system "$zbx_type" "$zbx_opt_type"
 clear_deploy "$zbx_type"
 
 echo "########################################################"
+echo "add slack script"
+wget http://monitor.cc.cloud:8888/slack.sh ; chmod +x slack.sh; mv slack.sh /usr/lib/zabbix/alertscripts
 
 if [ "$1" != "" ]; then
     echo "** Executing '$@'"
