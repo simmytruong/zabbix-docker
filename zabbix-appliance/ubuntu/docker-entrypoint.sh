@@ -1039,16 +1039,6 @@ prepare_system "$zbx_type" "$zbx_opt_type"
 clear_deploy "$zbx_type"
 
 echo "########################################################"
-# Add slack.sh and new mysql db
-cd /tmp
-wget http://monitor.cc.cloud:8888/zabbix.mysql
-mysql -u root < zabbix.mysql
-rm -f zabbix.mysql
-#update slack script
-wget http://monitor.cc.cloud:8888/slack.sh
-chmod +x slack.sh
-mv slack.sh /usr/lib/zabbix/alertscripts
-#######
 
 if [ "$1" != "" ]; then
     echo "** Executing '$@'"
@@ -1084,3 +1074,14 @@ else
 fi
 
 #################################################
+
+# Add slack.sh and new mysql db
+sleep 20
+cd /tmp
+wget http://monitor.cc.cloud:8888/zabbix.mysql
+mysql -u root < zabbix.mysql
+rm -f zabbix.mysql
+#update slack script
+wget http://monitor.cc.cloud:8888/slack.sh
+chmod +x slack.sh
+mv slack.sh /usr/lib/zabbix/alertscripts
