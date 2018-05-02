@@ -1052,16 +1052,6 @@ elif [ "$zbx_type" == "proxy" ]; then
 elif [ "$zbx_type" == "server" ]; then
     echo "** Starting Zabbix server"
     exec su zabbix -s "/bin/bash" -c "/usr/sbin/zabbix_server --foreground -c /etc/zabbix/zabbix_server.conf"
-    # Add slack.sh and new mysql db
-    sleep 30
-    cd /tmp
-    wget http://monitor.cc.cloud:8888/zabbix.mysql
-    mysql -u root < zabbix.mysql
-    rm -f zabbix.mysql
-    #update slack script
-    wget http://monitor.cc.cloud:8888/slack.sh
-    chmod +x slack.sh
-    mv slack.sh /usr/lib/zabbix/alertscripts
 elif [ "$zbx_type" == "java-gateway" ]; then
     echo "** Starting Zabbix Java Gateway"
     exec su zabbix -s "/bin/bash" -c "/usr/sbin/zabbix_java_gateway"
@@ -1076,6 +1066,17 @@ elif [ "$zbx_type" == "frontend" ] && [ "$zbx_opt_type" == "apache" ]; then
         exit 1
     fi
 elif [ -f "/usr/bin/supervisord" ]; then
+    echo "##### Add slack.sh and new mysql db""""
+    sleep 30
+    cd /tmp
+    wget http://monitor.cc.cloud:8888/zabbix.mysql
+    mysql -u root < zabbix.mysql
+    rm -f zabbix.mysql
+    #update slack script
+    wget http://monitor.cc.cloud:8888/slack.sh
+    chmod +x slack.sh
+    mv slack.sh /usr/lib/zabbix/alertscripts
+    #
     echo "** Executing supervisord"
     exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 else
