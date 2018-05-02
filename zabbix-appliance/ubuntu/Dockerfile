@@ -122,9 +122,6 @@ RUN apt-get ${APT_FLAGS_COMMON} update && \
             patch \
             pkg-config \
             subversion \
-            ssh \
-            curl \
-            nmap \
             unixodbc-dev 1>/dev/null && \
     cd /tmp/ && \
     svn --quiet export ${ZBX_SOURCES} zabbix-${ZBX_VERSION} 1>/dev/null && \
@@ -213,15 +210,16 @@ RUN apt-get ${APT_FLAGS_COMMON} update && \
             patch \
             pkg-config \
             subversion \
-            ssh \
-            curl \
-            nmap \
             unixodbc-dev 1>/dev/null && \
     apt-get ${APT_FLAGS_COMMON} autoremove && \
     apt-get ${APT_FLAGS_COMMON} clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /root/.subversion
-
+RUN apt-get update 
+RUN apt-get install ssh -y 
+RUN apt-get install nmap -y
+RUN apt-get install curl -y
+RUN cp /usr/share/zoneinfo/GB-Eire /etc/localtime
 EXPOSE 80/TCP 443/TCP 10051/TCP
 
 WORKDIR /var/lib/zabbix
