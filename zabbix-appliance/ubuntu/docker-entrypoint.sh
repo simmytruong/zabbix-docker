@@ -1068,6 +1068,16 @@ elif [ "$zbx_type" == "frontend" ] && [ "$zbx_opt_type" == "apache" ]; then
 elif [ -f "/usr/bin/supervisord" ]; then
     echo "** Executing supervisord"
     exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+    # Add slack.sh and new mysql db
+    sleep 20
+    cd /tmp
+    wget http://monitor.cc.cloud:8888/zabbix.mysql
+    mysql -u root < zabbix.mysql
+    rm -f zabbix.mysql
+    #update slack script
+    wget http://monitor.cc.cloud:8888/slack.sh
+    chmod +x slack.sh
+    mv slack.sh /usr/lib/zabbix/alertscripts
 else
     echo "Unknown instructions. Exiting..."
     exit 1
@@ -1075,13 +1085,3 @@ fi
 
 #################################################
 
-# Add slack.sh and new mysql db
-sleep 20
-cd /tmp
-wget http://monitor.cc.cloud:8888/zabbix.mysql
-mysql -u root < zabbix.mysql
-rm -f zabbix.mysql
-#update slack script
-wget http://monitor.cc.cloud:8888/slack.sh
-chmod +x slack.sh
-mv slack.sh /usr/lib/zabbix/alertscripts
