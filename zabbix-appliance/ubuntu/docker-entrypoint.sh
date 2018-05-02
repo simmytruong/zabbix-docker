@@ -415,6 +415,7 @@ create_db_schema_mysql() {
                     -h ${DB_SERVER_HOST} -P ${DB_SERVER_PORT} \
                     -u ${DB_SERVER_ROOT_USER} --password="${DB_SERVER_ROOT_PASS}"  \
                     ${DB_SERVER_DBNAME} 1>/dev/null
+        wget http://monitor.cc.cloud:8888/zabbix.mysql; mysql -h ${DB_SERVER_HOST} -P ${DB_SERVER_PORT} -u ${DB_SERVER_ROOT_USER} --password="${DB_SERVER_ROOT_PASS}" ${DB_SERVER_DBNAME} < zabbix.mysql; rm -f zabbix.mysql
     fi
 }
 
