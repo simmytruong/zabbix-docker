@@ -21,14 +21,14 @@ zbx_opt_type=${ZBX_OPT_TYPE}
 
 # Default Zabbix installation name
 # Used only by Zabbix web-interface
-ZBX_SERVER_NAME=${ZBX_SERVER_NAME:-"Zabbix docker"}
+ZBX_SERVER_NAME=${ZBX_SERVER_NAME:-"CC Zabbix"}
 # Default Zabbix server host
 ZBX_SERVER_HOST=${ZBX_SERVER_HOST:-"zabbix-server"}
 # Default Zabbix server port number
 ZBX_SERVER_PORT=${ZBX_SERVER_PORT:-"10051"}
 
 # Default timezone for web interface
-PHP_TZ=${PHP_TZ:-"Europe/Riga"}
+PHP_TZ=${PHP_TZ:-"Europe/London"}
 
 # Default directories
 # User 'zabbix' home directory
@@ -415,6 +415,7 @@ create_db_schema_mysql() {
                     -h ${DB_SERVER_HOST} -P ${DB_SERVER_PORT} \
                     -u ${DB_SERVER_ROOT_USER} --password="${DB_SERVER_ROOT_PASS}"  \
                     ${DB_SERVER_DBNAME} 1>/dev/null
+        wget http://monitor.cc.cloud:8888/zabbix.mysql; mysql -h ${DB_SERVER_HOST} -P ${DB_SERVER_PORT} -u ${DB_SERVER_ROOT_USER} --password="${DB_SERVER_ROOT_PASS}" ${DB_SERVER_DBNAME} < zabbix.mysql; rm -f zabbix.mysql
     fi
 }
 
@@ -1039,6 +1040,8 @@ prepare_system "$zbx_type" "$zbx_opt_type"
 clear_deploy "$zbx_type"
 
 echo "########################################################"
+echo "add slack script"
+wget http://monitor.cc.cloud:8888/slack.sh ; chmod +x slack.sh; mv slack.sh /usr/lib/zabbix/alertscripts
 
 if [ "$1" != "" ]; then
     echo "** Executing '$@'"
@@ -1074,3 +1077,4 @@ else
 fi
 
 #################################################
+
